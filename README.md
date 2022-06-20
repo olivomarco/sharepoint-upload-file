@@ -9,9 +9,11 @@ Our sample code contained in this repo is based on python, but since we are basi
 First, go to Azure Active Directory and create a new app registration. The name does not matter, and neither do all the parameters. The only two things you have to do are:
 
 - create a `client_secret` and note it down. We will put it into `CLIENT_SECRET` shell variable, along with our `CLIENT_ID` variable; also note down your Azure Active Directory Tenant ID and put it in a variable (`AAD_TENANT_ID`)
-- grant to the app registration the following API permissions under `Microsoft Graph` (see also image below): `Sites.FullControl.All`, `Sites.Manage.All`, `Sites.Read.All`, `Sites.ReadWrite.All`, `Sites.Selected`
+- grant to the app registration the following API permissions under `Microsoft Graph` (see also image below): `Sites.ReadWrite.All`
 
 Remember to **Grant admin consent** for your directory after you have added permissions.
+
+**Just a word of caution:** you are basically allowing your service principal to be able to read and write on any Sharepoint site of your organization. Be aware of this.
 
 ![API Permissions to grant to App Registration](/assets/permissions.png)
 
