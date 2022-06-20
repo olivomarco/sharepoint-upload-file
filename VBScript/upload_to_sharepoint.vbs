@@ -306,4 +306,4 @@ http.send ads
 oJSON.loadJSON http.responseText
 file_url = oJSON.data("webUrl")
 
-WSCript.Echo file_url
+'WScript.Echo file_url
