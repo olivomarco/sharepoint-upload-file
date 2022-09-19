@@ -9,11 +9,11 @@ Our sample code contained in this repo is based on python, but since we are basi
 First, go to Azure Active Directory and create a new app registration. The name does not matter, and neither do all the parameters. The only two things you have to do are:
 
 - create a `client_secret` and note it down. We will put it into `CLIENT_SECRET` shell variable, along with our `CLIENT_ID` variable; also note down your Azure Active Directory Tenant ID and put it in a variable (`AAD_TENANT_ID`)
-- grant to the app registration the following API permissions under `Microsoft Graph` (see also image below): `Sites.ReadWrite.All`
+- grant to the app registration the following API permissions under `Microsoft Graph` (see also image below): `Sites.Selected`
 
 Remember to **Grant admin consent** for your directory after you have added permissions.
 
-**Just a word of caution:** you are basically allowing your service principal to be able to read and write on any Sharepoint site of your organization. Be aware of this.
+Take a note of the "Application (client) ID" of your app registration. You will need it later.
 
 ![API Permissions to grant to App Registration](/assets/permissions.png)
 
@@ -25,6 +25,30 @@ Now, go to your Office 365 Sharepoint tenant and create a new Sharepoint website
 - the name of the Sharepoint site you have created (`SHP_SITE_NAME`)
 
 and put them inside the proper shell variables.
+
+## Grant permissions on Sharepoint site
+
+Now it's time to grant permissions to our app registration on the Sharepoint site we have just created. For this, you will need a bit of PowerShell.
+
+Open up a PowerShell window (with Administrator privileges) and run the following commands:
+
+```powershell
+Install-Module -Name "PnP.PowerShell"
+
+Connect-PnPOnline -Url "https://<TENANT_NAME>.sharepoint.com" -PnPManagementShell
+```
+
+where `<TENANT_NAME>` is the name of your Office 365 tenant. You will need to login in a browser window and give specific permissions to grant the PnP Management Shell to run. Log-in via an **admin** of your Office 365 tenant, and remember to tick "on behalf of organization" checkbox:
+
+![Grant permissions to PnP Management Shell](/assets/pnp-grant.png)
+
+Then, in your PowerShell window, run the following commands:
+
+```powershell
+Grant-PnPAzureADAppSitePermission -AppId "<APP_ID>" -DisplayName "newappshp" -Permissions Write -Site https://<TENANT_NAME>.sharepoint.com/sites/<SHP_SITE_NAME>
+```
+
+where `<APP_ID>` is the Application (client) ID of your app registration and `<TENANT_NAME>` is the name of your Office 365 tenant, and `<SHP_SITE_NAME>` is the name of the Sharepoint site you have created and you want to grant (in our case, `SharepointUpload`)
 
 ## Run code
 
