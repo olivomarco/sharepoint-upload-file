@@ -45,7 +45,7 @@ where `<TENANT_NAME>` is the name of your Office 365 tenant. You will need to lo
 Then, in your PowerShell window, run the following commands:
 
 ```powershell
-Grant-PnPAzureADAppSitePermission -AppId "<APP_ID>" -DisplayName "newappshp" -Permissions Write -Site https://<TENANT_NAME>.sharepoint.com/sites/<SHP_SITE_NAME>
+Grant-PnPAzureADAppSitePermission -AppId "<APP_ID>" -DisplayName "myappshp" -Permissions Write -Site https://<TENANT_NAME>.sharepoint.com/sites/<SHP_SITE_NAME>
 ```
 
 where `<APP_ID>` is the Application (client) ID of your app registration and `<TENANT_NAME>` is the name of your Office 365 tenant, and `<SHP_SITE_NAME>` is the name of the Sharepoint site you have created and you want to grant (in our case, `SharepointUpload`)
